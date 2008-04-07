@@ -1018,40 +1018,43 @@ class TranslatorFinnish : public TranslatorEnglish
 //////////////////////////////////////////////////////////////////////////
 
     /*! Used as a marker that is put before a \\todo item */
-    virtual QCString trTodo()
+    QCString trTodo()
     {
-      return "Todo";
+      return "Viel‰ teht‰v‰"; // "Todo"
     }
     /*! Used as the header of the todo list */
-    virtual QCString trTodoList()
+    QCString trTodoList()
     {
-      return "Todo List";
+      return "Teht‰v‰lista"; // "Todo List"
     }
 
 //////////////////////////////////////////////////////////////////////////
 // new since 1.1.4
 //////////////////////////////////////////////////////////////////////////
 
-    virtual QCString trReferencedBy()
+    QCString trReferencedBy()
     {
-      return "Referenced by";
+      return "Viitattu"; // "Referenced by"
     }
-    virtual QCString trRemarks()
+    QCString trRemarks()
     {
-      return "Remarks";
+      return "Huomioita"; // "Remarks"
     }
-    virtual QCString trAttention()
+    QCString trAttention()
     {
-      return "Attention";
+      return "Huomio"; // "Attention"
     }
-    virtual QCString trInclByDepGraph()
+    QCString trInclByDepGraph()
     {
-      return "This graph shows which files directly or "
-             "indirectly include this file:";
+      return "T‰m‰ kaavio n‰ytt‰‰, mitk‰ tiedostot suorasti"
+             "tai ep‰suorasti sis‰llytt‰v‰t t‰m‰n tiedoston";
+             // "This graph shows which files directly or "
+             // "indirectly include this file:"
     }
-    virtual QCString trSince()
+    QCString trSince()
     {
-      return "Since";
+        // FIXME: Miss‰ merkityksess‰ t‰t‰ k‰ytet‰‰n?
+      return "L‰htien"; // "Since"
     }
     
 //////////////////////////////////////////////////////////////////////////
@@ -1059,79 +1062,128 @@ class TranslatorFinnish : public TranslatorEnglish
 //////////////////////////////////////////////////////////////////////////
 
     /*! title of the graph legend page */
-    virtual QCString trLegendTitle()
+    QCString trLegendTitle()
     {
-      return "Graph Legend";
+      return "Kaavion selite"; // "Graph Legend"
     }
     /*! page explaining how the dot graph's should be interpreted 
      *  The %A in the text below are to prevent link to classes called "A".
      */
-    virtual QCString trLegendDocs()
+    QCString trLegendDocs()
     {
       return 
-        "This page explains how to interpret the graphs that are generated "
-        "by doxygen.<p>\n"
-        "Consider the following example:\n"
+        "T‰m‰ sivu selitt‰‰, kuinka doxygenin generoimia kaavioita tulkitaan.<p>\n"
+        // "This page explains how to interpret the graphs that are generated "
+        // "by doxygen.<p>\n"
+        "Ajattele seuraavaa esimerkki‰:\n"
+        // "Consider the following example:\n"
         "\\code\n"
-        "/*! Invisible class because of truncation */\n"
-        "class Invisible { };\n\n"
-        "/*! Truncated class, inheritance relation is hidden */\n"
-        "class Truncated : public Invisible { };\n\n"
-        "/* Class not documented with doxygen comments */\n"
-        "class Undocumented { };\n\n"
-        "/*! Class that is inherited using public inheritance */\n"
-        "class PublicBase : public Truncated { };\n\n"
-        "/*! A template class */\n"
-        "template<class T> class Templ { };\n\n"
-        "/*! Class that is inherited using protected inheritance */\n"
-        "class ProtectedBase { };\n\n"
-        "/*! Class that is inherited using private inheritance */\n"
-        "class PrivateBase { };\n\n"
-        "/*! Class that is used by the Inherited class */\n"
-        "class Used { };\n\n"
-        "/*! Super class that inherits a number of other classes */\n"
-        "class Inherited : public PublicBase,\n"
-        "                  protected ProtectedBase,\n"
-        "                  private PrivateBase,\n"
-        "                  public Undocumented,\n"
-        "                  public Templ<int>\n"
+        "/*! N‰kym‰tˆn luokka katkaisun vuoksi */\n"
+        // "/*! Invisible class because of truncation */\n"
+        "class Nakymaton { };\n\n"
+        // "class Invisible { };\n\n"
+        "/*! Katkaistu luokka, periytymissuhde on piilotettu */\n"
+        // "/*! Truncated class, inheritance relation is hidden */\n"
+        "class Katkaistu : public Nakymaton { };\n\n"
+        // "class Truncated : public Invisible { };\n\n"
+        "/* Luokkaa ei ole dokumentoitu doxygen-kommenteilla */\n"
+        // "/* Class not documented with doxygen comments */\n"
+        "class Dokumentoimaton {†};\n\n"
+        // "class Undocumented { };\n\n"
+        "/*! Julkista periytt‰mist‰ k‰ytt‰en periytetty luokka */\n"
+        // "/*! Class that is inherited using public inheritance */\n"
+        "class JulkinenKanta : public Katkaistu { };\n\n"
+        // "class PublicBase : public Truncated { };\n\n"
+        "/*! Malliluokka */\n"
+        // "/*! A template class */\n"
+        "template<class T> class Malli { };\n\n"
+        // "template<class T> class Templ { };\n\n"
+        "/*! Suojeltua periytymist‰ k‰ytt‰en periytetty luokka */\n"
+        // "/*! Class that is inherited using protected inheritance */\n"
+        "class SuojeltuKanta { };\n\n"
+        // "class ProtectedBase { };\n\n"
+        "/*! Yksityist‰ periytymist‰ k‰ytt‰en periytetty luokka */\n"
+        // "/*! Class that is inherited using private inheritance */\n"
+        "class YksityisKanta { };\n\n"
+        // "class PrivateBase { };\n\n"
+        "/*! Luokka jota periytetty luokka k‰ytt‰‰ */\n"
+        // "/*! Class that is used by the Inherited class */\n"
+        "class Kaytetty { };\n\n"
+        // "class Used { };\n\n"
+        "/*! Kantaluokka joka periytyy useasta muusta luokasta */\n"
+        // "/*! Super class that inherits a number of other classes */\n"
+        "class Periytetty : public JulkinenKanta,\n"
+        "                 : protected SuojeltuKanta,\n"
+        "                 : private YksityisKanta,\n"
+        "                 : public Dokumentoimaton,\n"
+        "                 : public Malli<int>\n"
         "{\n"
         "  private:\n"
-        "    Used *m_usedClass;\n"
-        "};\n"
+        "    Kaytetty *m_kaytettyLuokka;\n"
+        "}\n;
+        // "class Inherited : public PublicBase,\n"
+        // "                  protected ProtectedBase,\n"
+        // "                  private PrivateBase,\n"
+        // "                  public Undocumented,\n"
+        // "                  public Templ<int>\n"
+        // "{\n"
+        // "  private:\n"
+        // "    Used *m_usedClass;\n"
+        // "};\n"
         "\\endcode\n"
-        "If the \\c MAX_DOT_GRAPH_HEIGHT tag in the configuration file "
-        "is set to 240 this will result in the following graph:"
+        "Jos \\c MAX_DOT_GRAPH_HEIGHT-kentt‰ asetustiedostossa "
+        // "If the \\c MAX_DOT_GRAPH_HEIGHT tag in the configuration file "
+        "on asetettu arvoon 240, on tuloksena seuraavanlainen kaavio:"
+        // "is set to 240 this will result in the following graph:"
         "<p><center><img alt=\"\" src=\"graph_legend."+Config_getEnum("DOT_IMAGE_FORMAT")+"\"></center>\n"
         "<p>\n"
-        "The boxes in the above graph have the following meaning:\n"
+        "Yll‰olevassa kaaviossa laatikoilla on seuraavat merkitykset\n:"
+        // "The boxes in the above graph have the following meaning:\n"
         "<ul>\n"
-        "<li>%A filled gray box represents the struct or class for which the "
-        "graph is generated.\n"
-        "<li>%A box with a black border denotes a documented struct or class.\n"
-        "<li>%A box with a grey border denotes an undocumented struct or class.\n"
-        "<li>%A box with a red border denotes a documented struct or class for"
-        "which not all inheritance/containment relations are shown. %A graph is "
-        "truncated if it does not fit within the specified boundaries.\n"
+        "<li>T‰ytetty harmaa laatikko esitt‰‰ tietuetta tai luokkaa, jolle "
+        // "<li>%A filled gray box represents the struct or class for which the "
+        "kaavio on generoitu.\n"
+        // "graph is generated.\n"
+        "<li>Mustareunainen laatikko merkitsee dokumentoitua tietuetta tai luokkaa.\n"
+        // "<li>%A box with a black border denotes a documented struct or class.\n"
+        "<li>Harmaareunainen laatikko merkitsee dokumentoimatonta tietuetta tai luokkaa.\n"
+        // "<li>%A box with a grey border denotes an undocumented struct or class.\n"
+        "<li>Punareunainen laatikko merkistee dokumentoitua luokkaa tai structia "
+        // "<li>%A box with a red border denotes a documented struct or class for"
+        "jolle ei n‰ytet‰ kaikkia periytymis-/sis‰llyssuhteita. Kaavio "
+        // "which not all inheritance/containment relations are shown. %A graph is "
+        "katkaistaan, jos se ei mahdu m‰‰riteltyjen rajojen sis‰‰n.\n"
+        // "truncated if it does not fit within the specified boundaries.\n"
         "</ul>\n"
-        "The arrows have the following meaning:\n"
+        "Nuolilla on seuraavat merkitykset:\n"
+        // "The arrows have the following meaning:\n"
         "<ul>\n"
-        "<li>%A dark blue arrow is used to visualize a public inheritance "
-        "relation between two classes.\n"
-        "<li>%A dark green arrow is used for protected inheritance.\n"
-        "<li>%A dark red arrow is used for private inheritance.\n"
-        "<li>%A purple dashed arrow is used if a class is contained or used "
-        "by another class. The arrow is labeled with the variable(s) "
-        "through which the pointed class or struct is accessible.\n"
-        "<li>%A yellow dashed arrow denotes a relation between a template instance and "
-        "the template class it was instantiated from. The arrow is labeled with "
-        "the template parameters of the instance.\n"
+        "<li>Tummansinist‰ nuolta k‰ytet‰‰n osoittamaan julkista periytymis"
+        // "<li>%A dark blue arrow is used to visualize a public inheritance "
+        "suhdetta kahden luokan v‰lill‰.\n"
+        // "relation between two classes.\n"
+        "<li>Tummanvihre‰‰ nuolta k‰ytet‰‰n suojellussa periytymisess‰.\n"
+        // "<li>%A dark green arrow is used for protected inheritance.\n"
+        "<li>Tummanpunaista nuolta k‰ytet‰‰n yksityisess‰ periytymisess‰.\n"
+        // "<li>%A dark red arrow is used for private inheritance.\n"
+        "<li>Purppuranv‰rist‰ katkoviivaa k‰ytet‰‰n, jos luokka sis‰ltyy tai "
+        // "<li>%A purple dashed arrow is used if a class is contained or used "
+        "on toisen luokan k‰ytt‰m‰. Nuoli nimet‰‰n sill‰ muuttujalla/muuttujilla "
+        // "by another class. The arrow is labeled with the variable(s) "
+        "jonka l‰pi osoitettua luokkaa tai tietuetta k‰ytet‰‰n.\n"
+        // "through which the pointed class or struct is accessible.\n"
+        "<li>Keltainen katkoviivalla piirretty nuoli merkitsee suhdetta mallin esiintym‰n ja "
+        // "<li>%A yellow dashed arrow denotes a relation between a template instance and "
+        "malliluokan v‰lill‰. Nuoli nimet‰‰n "
+        // "the template class it was instantiated from. The arrow is labeled with "
+        "mallin esiintym‰n malliparametrilla.\n"
+        // "the template parameters of the instance.\n"
         "</ul>\n";
     }
     /*! text for the link to the legend page */
-    virtual QCString trLegend()
+    QCString trLegend()
     {
-      return "legend";
+      return "selite"; // "legend"
     }
     
 //////////////////////////////////////////////////////////////////////////
