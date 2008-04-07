@@ -18,6 +18,7 @@
 ==================================================================================
 Suomenkielinen käännös:
 Olli Korhonen      <olli.korhonen@ccc.fi>
+Antti Laine        <antti.a.laine@tut.fi>
 ==================================================================================
 1999/10/19
 *  Alustava käännös valmis.
@@ -30,24 +31,24 @@ Olli Korhonen      <olli.korhonen@ccc.fi>
         - Termien kokoaminen listaksi ja suomennosten järkevyyden tarkastelu. (lista on jo melko kattava)
                 Author          = Tekijä
                 Class           = Luokka
-                Compound        = Kooste ?
+                Compound        = Kooste
                 Data            = Data
                 Documentation   = Dokumentaatio
-                Defines         = Määrittelyt ?
+                Defines         = Määrittelyt
                 Description     = Selite
                 Detailed        = Yksityiskohtainen
-                diagram         = kaavio
-                Enum            = Enumeraatio ?
+                Diagram         = Kaavio
+                Enum            = Enumeraatio / Luettelotyyppi
                 Exceptions      = Poikkeukset
                 File            = Tiedosto
-                Friends         = Ystävät ?
+                Friends         = Ystävät
                 Functions       = Funktiot
                 Hierarchical    = Hierarkinen
                 Index           = Indeksi
                 Inherits        = Perii
                 Member          = Jäsen
                 Module          = Moduli
-                Namespace       = Nimiavaruus ?
+                Namespace       = Nimiavaruus
                 Parameters      = Parametrit
                 Private         = Yksityinen
                 Protected       = Suojattu
@@ -56,12 +57,12 @@ Olli Korhonen      <olli.korhonen@ccc.fi>
                 Reference Manual= Käsikirja
                 Reimplemented   = Uudelleen toteutettu
                 Related         = Liittyvä
-                Signals         = Signaali
-                Slots           = ? 
+                Signals         = Signaalit
+                Slots           = Vastineet
                 Static          = Staattinen
-                Struct          = ?
+                Struct          = Tietue
                 Typedef         = Tyyppimäärittely
-                Union           = ?
+                Union           = Yhdiste
                 Variables       = Muuttujat
         - Taivutusmuotojen virheettömyyden tarkastelu prepositioiden korvauskohdissa.
         - Sanasta sanaan käännöskohtien mielekkyyden tarkastelu valmiista dokumentista.
@@ -87,121 +88,182 @@ class TranslatorFinnish : public TranslatorEnglish
              "It was not updated since version 1.0.0.  As a result,\n"
              "some sentences may appear in English.\n\n";
     }
-
+    
+    // --- Language control methods -------------------
+    
+    /*! Used for identification of the language. The identification 
+     * should not be translated. It should be replaced by the name 
+     * of the language in English using lower-case characters only
+     * (e.g. "czech", "japanese", "russian", etc.). It should be equal to 
+     * the identification used in language.cpp.
+     */
     QCString idLanguage()
     { return "finnish"; }
 
-    QCString trRelatedFunctions()
-      // used in the compound documentation before a list of related functions.
-    { return "Liittyvät Funktiot"; } // "Related Functions";
+    /*! Used to get the LaTeX command(s) for the language support. 
+     *  This method should return string with commands that switch
+     *  LaTeX to the desired language.  For example 
+     *  <pre>"\\usepackage[german]{babel}\n"
+     *  </pre>
+     *  or
+     *  <pre>"\\usepackage{polski}\n"
+     *  "\\usepackage[latin2]{inputenc}\n"
+     *  "\\usepackage[T1]{fontenc}\n"
+     *  </pre>
+     * 
+     * The English LaTeX does not use such commands.  Because of this
+     * the empty string is returned in this implementation.
+     */
+    virtual QCString latexLanguageSupportCommand()
+    {
+      return "\\usepackage[finnish}{babel}"
+             "\\usepackage[latin1]{inputenc}"
+             "\\usepackage[T1]{fontenc}";
+    }
 
+    /*! return the language charset. This will be used for the HTML output */
+    virtual QCString idLanguageCharset()
+    {
+      return "iso-8859-1";
+    }
+
+    // --- Language translation methods -------------------
+
+    /*! used in the compound documentation before a list of related functions. */
+    QCString trRelatedFunctions()
+    { return "Liittyvät funktiot"; } // "Related Functions";
+
+    /*! subscript for the related functions. */
     QCString trRelatedSubscript()
-      // subscript for the related functions.
     { return "(Huomaa, että nämä eivät ole jäsenfunktioita.)"; } // "(Note that these are not member functions.)"
 
+    /*! header that is put before the detailed description of files, classes and namespaces. */
     QCString trDetailedDescription()
-      // header that is put before the detailed description of files, classes and namespaces.
-    { return "Yksityiskohtainen Selite"; } // "Detailed Description"
+    { return "Yksityiskohtainen selite"; } // "Detailed Description"
 
+    /*! header that is put before the list of typedefs. */
     QCString trMemberTypedefDocumentation()
       // header that is put before the list of typedefs.
-    { return "Jäsen Tyyppimäärittelyiden Dokumentaatio"; } // "Member Typedef Documentation"
+    { return "Jäsentyyppimäärittelyiden dokumentaatio"; } // "Member Typedef Documentation"
 
+    /*! header that is put before the list of enumerations. */
     QCString trMemberEnumerationDocumentation()
-      // header that is put before the list of enumerations.
-    { return "Jäsen Enumeraatioiden Dokumentaatio"; } // "Member Enumeration Documentation"
+    { return "Jäsenenumeraatioiden dokumentaatio"; } // "Member Enumeration Documentation"
 
-    QCString trEnumerationValueDocumentation()
-    { return "Enumeraatioarvojen Dokumentaatio"; } 
-
+    /*! header that is put before the list of member functions. */
     QCString trMemberFunctionDocumentation()
-      // header that is put before the list of member functions.
-    { return "Jäsen Funktioiden Dokumentaatio"; } // "Member Function Documentation"
-    QCString trMemberDataDocumentation()
-      // header that is put before the list of member attributes.
-    { return "Jäsen Datan Dokumentaatio"; } // "Member Data Documentation"
+    { return "Jäsenfunktioiden dokumentaatio"; } // "Member Function Documentation"
 
+    /*! header that is put before the list of member attributes. */
+    virtual QCString trMemberDataDocumentation()
+    { 
+      if (Config_getBool("OPTIMIZE_OUTPUT_FOR_C"))
+      {
+        return "Kenttien dokumentaatio"; // "Field Documentation"; 
+      }
+      else
+      {
+        return "Jäsendatan dokumentaatio"; // "Member Data Documentation"
+      }
+    }
+
+    /*! this is the text of a link put after brief descriptions. */
     QCString trMore()
-      // this is the text of a link put after brief descriptions.
     { return "Lisää..."; } // "More..."
 
+     /*! put in the class documentation */
     QCString trListOfAllMembers()
-      // put in the class documentation
     { return "Lista kaikista jäsenistä."; } // "List of all members."
     QCString trMemberList()
 
-      // used as the title of the "list of all members" page of a class
-    { return "Jäsen Lista"; } // "Member List"
+    /*! used as the title of the "list of all members" page of a class */
+    { return "Jäsenlista"; } // "Member List"
 
+    /*! this is the first part of a sentence that is followed by a class name */
     QCString trThisIsTheListOfAllMembers()
-      // this is the first part of a sentence that is followed by a class name
     { return "Tämä on lista kaikista jäsenistä"; } // "This is the complete list of members for "
-    QCString trIncludingInheritedMembers()
-      // this is the remainder of the sentence after the class name
-    { return ", sisältää kaikki perityt jäsenet."; } // ", including all inherited members."
 
+    /*! this is the remainder of the sentence after the class name */
+    QCString trIncludingInheritedMembers()
+    { return ", sisältäen kaikki perityt jäsenet."; } // ", including all inherited members."
+
+    /*! this is put at the author sections at the bottom of man pages.
+     *  parameter s is name of the project name.
+     */
     QCString trGeneratedAutomatically(const char *s)
-      // this is put at the author sections at the bottom of man pages.
-      // parameter s is name of the project name.
-    { QCString result="Automaattisesti generoitu Doxygen:lla "; // "Generated automatically by Doxygen"
+    { QCString result="Automaattisesti generoitu Doxygenilla "; // "Generated automatically by Doxygen"
       //if (s) result+=(QCString)" voor "+s;
       // tässä on ongelma, kuinka taivuttaa parametria, esim. "Jcad"+"in"; "IFC2VRML konversio"+"n"
       // mutta ratkaistaan ongelma kätevästi kaksoispisteellä -> "Jcad:n" / "IFC2VRML konversio:n"
       // lopputulos on vähemmän kökkö ja täysin luettava, mutta ei kuitenkaan täydellinen.
-      if (s) result+=(QCString)s+":n "; 
-      result+="lähdekoodista."; // " from the source code."
+      //
+      // Yritys ratkaista laittamalla "in" konsonanteille, "n" vokaaleille ja ":n" omituisille konsonanteille kuten q, x ja z
+      if (s) result+=genitive(s);
+      result+=" lähdekoodista."; // " from the source code."
       return result;
     }
 
+    /*! put after an enum name in the list of all members */
     QCString trEnumName()
-      // put after an enum name in the list of all members
     { return "enumeraation nimi"; } // "enum name"
 
+    /*! put after an enum value in the list of all members */
     QCString trEnumValue()
-      // put after an enum value in the list of all members
     { return "enumeraation arvo"; } // "enum value"
 
+    /*! put after an undocumented member in the list of all members */
     QCString trDefinedIn()
-      // put after an undocumented member in the list of all members
     { return "määritelty"; } // "defined in"
 
     // quick reference sections
+
+    /*! This is put above each page as a link to the list of all groups of 
+     *  compounds or files (see the \\group command).
+     */
     QCString trModules()
-      // This is put above each page as a link to the list of all groups of 
-      // compounds or files (see the \group command).
-    { return "Modulit"; } // "Modules"
+    { return "Moduulit"; } // "Modules"
+    
+    /*! This is put above each page as a link to the class hierarchy */
     QCString trClassHierarchy()
-      // This is put above each page as a link to the class hierarchy 
-    { return "Luokka Hierarkia"; } // "Class Hierarchy"
+    { return "Luokkahierarkia"; } // "Class Hierarchy"
+    
     QCString trCompoundList()
-      // This is put above each page as a link to the list of annotated classes
-    { return "Kooste Lista"; } // "Compound List"
+    { return "Koostelista"; } // "Compound List"
+    
     QCString trFileList()
       // This is put above each page as a link to the list of documented files
-    { return "Tiedosto Lista"; } // "File List"
+    { return "Tiedostolista"; } // "File List"
+    
     QCString trHeaderFiles()
       // This is put above each page as a link to the list of all verbatim headers
-    { return "Header Tiedostot"; } // "Header Files"
+    { return "Otsikkotiedostot"; } // "Header Files"
+    
     QCString trCompoundMembers()
       // This is put above each page as a link to all members of compounds.
-    { return "Koosteen Jäsenet"; } // "Compound Members"
+    { return "Koosteen jäsenet"; } // "Compound Members"
+    
     QCString trFileMembers()
       // This is put above each page as a link to all members of files.
-    { return "Tiedosto Jäsenet"; } // "File Members"
+    { return "Tiedostojäsenet"; } // "File Members"
+    
     QCString trRelatedPages()
       // This is put above each page as a link to all related pages.
-    { return "Liittyvät Sivut"; } // "Related Pages"
+    { return "Liittyvät sivut"; } // "Related Pages"
+    
     QCString trExamples()
       // This is put above each page as a link to all examples.
     { return "Esimerkit"; } // "Examples"
+    
     QCString trSearch()
       // This is put above each page as a link to the search engine.
     { return "Etsi"; } // "Search"
+    
     QCString trClassHierarchyDescription()
       // This is an introduction to the class hierarchy.
     { return "Tämä periytymislista on päätasoltaan aakkostettu " // "This inheritance list is sorted roughly, "
              "mutta alijäsenet on aakkostettu itsenäisesti:"; // "but not completely, alphabetically:";
     }
+    
     QCString trFileListDescription(bool extractAll)
       // This is an introduction to the list with all files.
     {
@@ -210,11 +272,13 @@ class TranslatorFinnish : public TranslatorEnglish
       result+="tiedostoista lyhyen selitteen kera:"; // "files with brief descriptions:"
       return result;
     }
+    
     QCString trCompoundListDescription()
       // This is an introduction to the annotated compound list
     { return "Täällä on luokat, struktuurit ja " // "Here are the classes, structs and "
              "unionit lyhyen selitteen kera:"; // "unions with brief descriptions:"
     }
+    
     QCString trCompoundMembersDescription(bool extractAll)
       // This is an introduction to the page with all class members
     {
@@ -227,6 +291,7 @@ class TranslatorFinnish : public TranslatorEnglish
         result+="luokkaan johon ne kuuluvat:"; // "the classes they belong to:"
       return result;
     }
+    
     QCString trFileMembersDescription(bool extractAll)
       // This is an introduction to the page with all file members
     {
@@ -239,63 +304,79 @@ class TranslatorFinnish : public TranslatorEnglish
         result+="tiedostoon johon ne kuuluvat:"; // "the files they belong to:"
       return result;
     }
+    
     QCString trHeaderFilesDescription()
       // This is an introduction to the page with the list of all header files
     { return "Täällä on kaikki header tiedostot jotka muodostavat API:n:"; } // "Here are the header files that make up the API:"
+    
     QCString trExamplesDescription()
       // This is an introduction to the page with the list of all examples
     { return "Täällä on lista kaikista esimerkeistä:"; } //  "Here is a list of all examples:"
+    
     QCString trRelatedPagesDescription()
       // This is an introduction to the page with the list of related pages
     { return "Täällä on lista kaikista liittyvistä dokumentaatiosivuista:"; } // "Here is a list of all related documentation pages:"
+    
     QCString trModulesDescription()
       // This is an introduction to the page with the list of class/file groups
     { return "Täällä on lista kaikista moduleista:"; } // "Here is a list of all modules:"
+    
     QCString trNoDescriptionAvailable()
       // This sentences is used in the annotated class/file lists if no brief
       // description is given.
     { return "Selitettä ei ole saatavilla"; } // "No description available"
 
     // index titles (the project name is prepended for these) 
+    
     QCString trDocumentation()
       // This is used in HTML as the title of index.html. 
     { return "Dokumentaatio"; } // "Documentation"
+    
     QCString trModuleIndex()
       // This is used in LaTeX as the title of the chapter with the 
       // index of all groups.
-    { return "Moduli Indeksi"; } // "Module Index"
+    { return "Moduuliluettelo"; } // "Module Index"
+    
     QCString trHierarchicalIndex()
       // This is used in LaTeX as the title of the chapter with the 
       // class hierarchy.
-    { return "Hierarkinen Indeksi"; } // "Hierarchical Index"
+    { return "Hierarkinen luettelo"; } // "Hierarchical Index"
+    
     QCString trCompoundIndex()
       // This is used in LaTeX as the title of the chapter with the 
       // annotated compound index
-    { return "Koosteiden Indeksi"; } // "Compound Index"
+    { return "Koosteluettelo"; } // "Compound Index"
+    
     QCString trFileIndex() 
       // This is used in LaTeX as the title of the chapter with the
       // list of all files.
-    { return "Tiedosto Indeksi"; } // "File Index"
+    { return "Tiedostoluettelo"; } // "File Index"
+    
     QCString trModuleDocumentation()
       // This is used in LaTeX as the title of the chapter containing
       // the documentation of all groups.
-    { return "Moduli Dokumentaatio"; } // "Module Documentation"
+    { return "Moduulin dokumentaatio"; } // "Module Documentation"
+    
     QCString trClassDocumentation()
       // This is used in LaTeX as the title of the chapter containing
       // the documentation of all classes, structs and unions.
-    { return "Luokka Dokumentaatio"; } // "Class Documentation"
+    { return "Luokan dokumentaatio"; } // "Class Documentation"
+    
     QCString trFileDocumentation()
       // This is used in LaTeX as the title of the chapter containing
       // the documentation of all files.
-    { return "Tiedosto Dokumentaatio"; } // "File Documentation"
+    { return "Tiedoston dokumentaatio"; } // "File Documentation"
+    
     QCString trExampleDocumentation()
       // This is used in LaTeX as the title of the chapter containing
       // the documentation of all examples.
-    { return "Esimerkkien Dokumentaatio"; } // "Example Documentation"
+    { return "Esimerkkien dokumentaatio"; } // "Example Documentation"
+    
     QCString trPageDocumentation()
       // This is used in LaTeX as the title of the chapter containing
       // the documentation of all related pages.
-    { return "Sivujen Dokumentaatio"; } // "Page Documentation"
+    { return "Sivujen dokumentaatio"; } // "Page Documentation"
+    
     QCString trReferenceManual()
       // This is used in LaTeX as the title of the document
     { return "Käsikirja"; } // "Reference Manual"
@@ -304,59 +385,71 @@ class TranslatorFinnish : public TranslatorEnglish
       // This is used in the documentation of a file as a header before the 
       // list of defines
     { return "Määrittelyt"; } // "Defines"
+    
     QCString trFuncProtos()
       // This is used in the documentation of a file as a header before the 
       // list of function prototypes
-    { return "Funktioiden Prototyypit"; } // "Function Prototypes"
+    { return "Funktioiden prototyypit"; } // "Function Prototypes"
+    
     QCString trTypedefs()
       // This is used in the documentation of a file as a header before the 
       // list of typedefs
     { return "Tyyppimäärittelyt"; } // "Typedefs"
+    
     QCString trEnumerations()
       // This is used in the documentation of a file as a header before the 
       // list of enumerations
-    { return "Enumeraatiot"; } // "Enumerations"
+    { return "Luettelotyypit"; } // "Enumerations"
+    
     QCString trFunctions()
       // This is used in the documentation of a file as a header before the 
       // list of (global) functions
     { return "Funktiot"; } // "Functions"
+    
     QCString trVariables()
       // This is used in the documentation of a file as a header before the 
       // list of (global) variables
     { return "Muuttujat"; } // "Variables"
+    
     QCString trEnumerationValues()
       // This is used in the documentation of a file as a header before the 
       // list of (global) variables
-    { return "Enumeraation arvot"; } // "Enumeration values"
+    { return "Luettelotyyppien arvot"; } // "Enumeration values"
 
     QCString trDefineDocumentation()
       // This is used in the documentation of a file before the list of
       // documentation blocks for defines
     { return "Määritysten dokumentointi"; } // "Define Documentation"
+    
     QCString trFunctionPrototypeDocumentation()
       // This is used in the documentation of a file/namespace before the list 
       // of documentation blocks for function prototypes
-    { return "Funktio Prototyyppien Dokumentaatio"; } // "Function Prototype Documentation"
+    { return "Funktioprototyyppien dokumentaatio"; } // "Function Prototype Documentation"
+    
     QCString trTypedefDocumentation()
       // This is used in the documentation of a file/namespace before the list 
       // of documentation blocks for typedefs
-    { return "Tyyppimääritysten Dokumentaatio"; } // "Typedef Documentation"
+    { return "Tyyppimääritysten dokumentaatio"; } // "Typedef Documentation"
+    
     QCString trEnumerationTypeDocumentation()
       // This is used in the documentation of a file/namespace before the list 
       // of documentation blocks for enumeration types
-    { return "Enumeraatio Tyyppien Dokumentaatio"; } // "Enumeration Type Documentation"
+    { return "Luettelotyyppien dokumentaatio"; } // "Enumeration Type Documentation"
     QCString trFunctionDocumentation()
       // This is used in the documentation of a file/namespace before the list 
       // of documentation blocks for functions
-    { return "Funktioiden Dokumentaatio"; } // "Function Documentation"
+    { return "Funktioiden dokumentaatio"; } // "Function Documentation"
+    
     QCString trVariableDocumentation()
       // This is used in the documentation of a file/namespace before the list 
       // of documentation blocks for variables
-    { return "Muuttujien Dokumentaatio"; } // "Variable Documentation"
+    { return "Muuttujien dokumentaatio"; } // "Variable Documentation"
+    
     QCString trCompounds()
       // This is used in the documentation of a file/namespace/group before 
       // the list of links to documented compounds
     { return "Koosteet"; } // "Compounds"
+    
     QCString trFiles()
       // This is used in the documentation of a group before the list of 
       // links to documented files
@@ -370,10 +463,12 @@ class TranslatorFinnish : public TranslatorEnglish
       result+=(QCString)" tekijä: "; // " by"
       return result;
     }
+    
     QCString trWrittenBy()
     {
       return "kirjoittanut"; // "written by"
     }
+    
     QCString trClassDiagram(const char *clName)
       // this text is put before a class diagram
     {
@@ -383,36 +478,47 @@ class TranslatorFinnish : public TranslatorEnglish
     QCString trForInternalUseOnly()
       // this text is generated when the \internal command is used.
     { return "Vain sisäiseen käyttöön."; } // "For internal use only."
+    
     QCString trReimplementedForInternalReasons()
       // this text is generated when the \reimp command is used.
     { return "Uudelleen toteutettu sisäisistä syistä; API ei ole muuttunut."; } // "Reimplemented for internal reasons; the API is not affected."
+    
     QCString trWarning()
       // this text is generated when the \warning command is used.
     { return "Varoitus"; } // "Warning"
       // this text is generated when the \bug command is used.
+    
     QCString trBugsAndLimitations()
     { return "Virheet ja rajoitukset"; } // "Bugs and limitations"
+    
     QCString trVersion()
       // this text is generated when the \version command is used.
     { return "Versio"; } // "Version"
+    
     QCString trDate()
       // this text is generated when the \date command is used.
     { return "Päiväys"; } // "Date"
+    
     QCString trAuthors()
       // this text is generated when the \author command is used.
     { return "Tekijä(t)"; } // "Author(s)"
+    
     QCString trReturns()
       // this text is generated when the \return command is used.
     { return "Palauttaa"; } // "Returns"
+    
     QCString trSeeAlso()
       // this text is generated when the \sa command is used.
     { return "Katso myös"; } // "See also"
+    
     QCString trParameters()
       // this text is generated when the \param command is used.
     { return "Parametrit"; } // "Parameters"
+    
     QCString trExceptions()
       // this text is generated when the \exception command is used.
     { return "Poikkeukset"; } // "Exceptions"
+    
     QCString trGeneratedBy()
       // this text is used in the title page of a LaTeX document.
     { return "Generoinut"; } // "Generated by"
@@ -424,6 +530,7 @@ class TranslatorFinnish : public TranslatorEnglish
     QCString trNamespaceList()
       // used as the title of page containing all the index of all namespaces.
     { return "Nimiavaruus Lista"; } // "Namespace List"
+    
     QCString trNamespaceListDescription(bool extractAll)
       // used as an introduction to the namespace list
     {
@@ -432,6 +539,7 @@ class TranslatorFinnish : public TranslatorEnglish
       result+="nimiavaruuksista lyhyen selitteen kera:"; // "namespaces with brief descriptions:"
       return result;
     }
+    
     QCString trFriends()
       // used in the class documentation as a header before the list of all
       // friends of a class
@@ -469,6 +577,7 @@ class TranslatorFinnish : public TranslatorEnglish
       result+=" Referenssi"; // " Reference"
       return result;
     }
+    
     virtual QCString trFileReference(const char *fileName)
       // used as the title of the HTML page of a file
     {
@@ -476,6 +585,7 @@ class TranslatorFinnish : public TranslatorEnglish
       result+=" Tiedosto Referenssi"; // " File Reference"
       return result;
     }
+    
     virtual QCString trNamespaceReference(const char *namespaceName)
       // used as the title of the HTML page of a namespace
     {
@@ -487,22 +597,31 @@ class TranslatorFinnish : public TranslatorEnglish
     // these are for the member sections of a class, struct or union 
     virtual QCString trPublicMembers()
     { return "Julkiset Jäsenet"; } // "Public Members"
+    
     virtual QCString trPublicSlots()
     { return "Julkiset Slotit"; } // "Public Slots"
+    
     virtual QCString trSignals()
     { return "Signaalit"; } // "Signals"
+    
     virtual QCString trStaticPublicMembers()
     { return "Staattiset Julkiset Jäsenet"; } // "Static Public Members"
+    
     virtual QCString trProtectedMembers()
     { return "Suojatut Jäsenet"; } // "Protected Members"
+    
     virtual QCString trProtectedSlots()
     { return "Suojatut Slotit"; } // "Protected Slots"
+    
     virtual QCString trStaticProtectedMembers()
     { return "Staattiset Suojatut Jäsenet"; } // "Static Protected Members"
+    
     virtual QCString trPrivateMembers()
     { return "Yksityiset Jäsenet"; } // "Private Members"
+    
     virtual QCString trPrivateSlots()
     { return "Yksityiset Slotit"; } // "Private Slots"
+    
     virtual QCString trStaticPrivateMembers()
     { return "Staattiset Yksityiset Jäsenet"; } // "Static Private Members"
     // end of member sections 
@@ -537,18 +656,21 @@ class TranslatorFinnish : public TranslatorEnglish
     {
       return "Perijät "+trWriteList(numEntries)+"."; // "Inherits "
     }
+    
     virtual QCString trInheritedByList(int numEntries)
       // used in class documentation to produce a list of super classes,
       // if class diagrams are disabled.
     {
       return "Periytyy "+trWriteList(numEntries)+"."; // "Inherited by "
     }
+    
     virtual QCString trReimplementedFromList(int numEntries)
       // used in member documentation blocks to produce a list of 
       // members that are hidden by this one.
     {
       return "Uudelleen toteutettu "+trWriteList(numEntries)+"."; // "Reimplemented from "
     }
+    
     virtual QCString trReimplementedInList(int numEntries)
     {
       // used in member documentation blocks to produce a list of
@@ -559,6 +681,7 @@ class TranslatorFinnish : public TranslatorEnglish
     virtual QCString trNamespaceMembers()
       // This is put above each page as a link to all members of namespaces.
     { return "Nimiavaruuden jäsenet"; } // "Namespace Members"
+    
     virtual QCString trNamespaceMemberDescription(bool extractAll)
       // This is an introduction to the page with all namespace members
     { 
@@ -571,14 +694,61 @@ class TranslatorFinnish : public TranslatorEnglish
         result+="nimiavaruuteen johon ne kuuluvat:"; // "the namespaces they belong to:"
       return result;
     }
+    
     virtual QCString trNamespaceIndex()
       // This is used in LaTeX as the title of the chapter with the 
       // index of all namespaces.
     { return "Nimiavaruuden Indeksi"; } // "Namespace Index"
+    
     virtual QCString trNamespaceDocumentation()
       // This is used in LaTeX as the title of the chapter containing
       // the documentation of all namespaces.
     { return "Nimiavaruuden Dokumentaatio"; } // "Namespace Documentation"
 };
+
+    private:
+        
+        /*! Inflection to genitive case
+         *  Used by some functions that have to inlect a word
+         *  to better fit in Finnish spelling */
+        QCString genitive( const char *s ) {
+          if (s) {
+            switch (s[strlen(s)-1]) {
+              case 'b':
+              case 'c':
+              case 'd':
+              case 'f':
+              case 'g':
+              case 'h':
+              case 'j':
+              case 'k':
+              case 'l':
+              case 'm':
+              case 'n':
+              case 'p':
+              case 'r':
+              case 's':
+              case 't':
+              case 'v':
+                result+=(QCString)s+"in";
+                break;
+
+              case 'a':
+              case 'e':
+              case 'i':
+              case 'o':
+              case 'u':
+              case 'y':
+              case 'å':
+              case 'ä':
+              case 'ö':
+                result+=(QCString)s+"n";
+                break;
+
+              default: // q, x, z
+                result+=(QCString)s+":n";
+                break;
+            }
+          }
 
 #endif
