@@ -894,122 +894,123 @@ class TranslatorFinnish : public TranslatorEnglish
 //////////////////////////////////////////////////////////////////////////
 
     /*! this text is put before a collaboration diagram */
-    virtual QCString trCollaborationDiagram(const char *clName)
+    QCString trCollaborationDiagram(const char *clName)
     {
-      return (QCString)"Collaboration diagram for "+clName+":";
+      return (QCString)"Yhteistyökaavio luokalle "+clName+":"; // "Collaboration diagram for "+clName+":"
     }
     /*! this text is put before an include dependency graph */
-    virtual QCString trInclDepGraph(const char *fName)
+    QCString trInclDepGraph(const char *fName)
     {
-      return (QCString)"Include dependency graph for "+fName+":";
+      return (QCString)"Sisällytysriippuvuuskaavio tiedostolle "+fName+":"; // "Include dependency graph for "+fName+":"
     }
     /*! header that is put before the list of constructor/destructors. */
-    virtual QCString trConstructorDocumentation()
+    QCString trConstructorDocumentation()
     {
-      return "Constructor & Destructor Documentation"; 
+      return "Rakentajien & purkajien dokumentaatio"; // "Constructor & Destructor Documentation";
     }
     /*! Used in the file documentation to point to the corresponding sources. */
-    virtual QCString trGotoSourceCode()
+    QCString trGotoSourceCode()
     {
-      return "Go to the source code of this file.";
+      return "Siirry tämän tiedoston lähdekoodiin."; // "Go to the source code of this file."
     }
     /*! Used in the file sources to point to the corresponding documentation. */
-    virtual QCString trGotoDocumentation()
+    QCString trGotoDocumentation()
     {
-      return "Go to the documentation of this file.";
+      return "Mene tämän tiedoston dokumentaatioon."; // "Go to the documentation of this file."
     }
     /*! Text for the \\pre command */
-    virtual QCString trPrecondition()
+    QCString trPrecondition()
     {
-      return "Precondition";
+      return "Esiehto"; //"Precondition"
     }
     /*! Text for the \\post command */
-    virtual QCString trPostcondition()
+    QCString trPostcondition()
     {
-      return "Postcondition";
+      return "Jälkiehto"; // "Postcondition"
     }
     /*! Text for the \\invariant command */
-    virtual QCString trInvariant()
+    QCString trInvariant()
     {
-      return "Invariant";
+      return "Invariantti"; // vai "Pysyväisväittämä"? "Invariant"
     }
     /*! Text shown before a multi-line variable/enum initialization */
-    virtual QCString trInitialValue()
+    QCString trInitialValue()
     {
-      return "Initial value:";
+      return "Alkuarvo:"; // "Initial value:"
     }
     /*! Text used the source code in the file index */
-    virtual QCString trCode()
+    QCString trCode()
     {
-      return "code";
+      return "koodi"; // "code"
     }
-    virtual QCString trGraphicalHierarchy()
+    QCString trGraphicalHierarchy()
     {
-      return "Graphical Class Hierarchy";
+      return "Graafinen luokkahierarkia"; // "Graphical Class Hierarchy"
     }
-    virtual QCString trGotoGraphicalHierarchy()
+    QCString trGotoGraphicalHierarchy()
     {
-      return "Go to the graphical class hierarchy";
+      return "Siirry graafiseen luokkahiearkiaan"; // "Go to the graphical class hierarchy"
     }
-    virtual QCString trGotoTextualHierarchy()
+    QCString trGotoTextualHierarchy()
     {
-      return "Go to the textual class hierarchy";
+      return "Siirry tekstimuotoiseen luokkahierarkiaan"; // "Go to the textual class hierarchy"
     }
-    virtual QCString trPageIndex()
+    QCString trPageIndex()
     {
-      return "Page Index";
+      return "Sivuhakemisto"; // "Page Index"
     }
 
 //////////////////////////////////////////////////////////////////////////
 // new since 1.1.0
 //////////////////////////////////////////////////////////////////////////
     
-    virtual QCString trNote()
+    QCString trNote()
     {
-      return "Note";
+        // FIXME: Missähän merkityksessä tätä käytetään?
+      return "Huomautus"; // "Note"
     }
-    virtual QCString trPublicTypes()
+    QCString trPublicTypes()
     {
-      return "Public Types";
+      return "Julkiset tyypit"; // "Public Types"
     }
-    virtual QCString trPublicAttribs()
+    QCString trPublicAttribs()
     {
       if (Config_getBool("OPTIMIZE_OUTPUT_FOR_C"))
       {
-        return "Data Fields";
+        return "Tietueen kentät"; // "Data Fields"
       }
       else
       {
-        return "Public Attributes";
+        return "Julkiset attribuutit"; // "Public Attributes"
       }
     }
-    virtual QCString trStaticPublicAttribs()
+    QCString trStaticPublicAttribs()
     {
-      return "Static Public Attributes";
+      return "Staattiset julkiset attribuutit"; // "Static Public Attributes"
     }
-    virtual QCString trProtectedTypes()
+    QCString trProtectedTypes()
     {
-      return "Protected Types";
+      return "Suojellut tyypit"; // "Protected Types"
     }
-    virtual QCString trProtectedAttribs()
+    QCString trProtectedAttribs()
     {
-      return "Protected Attributes";
+      return "Suojellut attribuutit"; // "Protected Attributes"
     }
-    virtual QCString trStaticProtectedAttribs()
+    QCString trStaticProtectedAttribs()
     {
-      return "Static Protected Attributes";
+      return "Stattiset suojellut attribuutit"; // "Static Protected Attributes"
     }
-    virtual QCString trPrivateTypes()
+    QCString trPrivateTypes()
     {
-      return "Private Types";
+      return "Yksityiset tyypit"; // "Private Types"
     }
-    virtual QCString trPrivateAttribs()
+    QCString trPrivateAttribs()
     {
-      return "Private Attributes";
+      return "Yksityiset attribuutit"; // "Private Attributes"
     }
-    virtual QCString trStaticPrivateAttribs()
+    QCString trStaticPrivateAttribs()
     {
-      return "Static Private Attributes";
+      return "Staattiset yksityiset attribuutit"; // "Static Private Attributes"
     }
 
 //////////////////////////////////////////////////////////////////////////
