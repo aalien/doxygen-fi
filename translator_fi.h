@@ -662,7 +662,7 @@ class TranslatorFinnish : public TranslatorEnglish
 //////////////////////////////////////////////////////////////////////////
 
     /*! used as the title of the HTML page of a class/struct/union */
-    virtual QCString trCompoundReference(const char *clName,
+    QCString trCompoundReference(const char *clName,
                                     ClassDef::CompoundType compType,
                                     bool isTemplate)
     {
@@ -683,7 +683,7 @@ class TranslatorFinnish : public TranslatorEnglish
     }
 
     /*! used as the title of the HTML page of a file */
-    virtual QCString trFileReference(const char *fileName)
+    QCString trFileReference(const char *fileName)
     {
       QCString result=fileName;
       result+=" Tiedostoreferenssi"; // " File Reference"
@@ -691,32 +691,32 @@ class TranslatorFinnish : public TranslatorEnglish
     }
     
     /*! used as the title of the HTML page of a namespace */
-    virtual QCString trNamespaceReference(const char *namespaceName)
+    QCString trNamespaceReference(const char *namespaceName)
     {
       QCString result=namespaceName;
       result+=" Nimiavaruusreferenssi"; // " Namespace Reference"
       return result;
     }
     
-    virtual QCString trPublicMembers()
+    QCString trPublicMembers()
     { return "Julkiset j‰senfunktiot"; } // "Public Member Functions"
-    virtual QCString trPublicSlots()
+    QCString trPublicSlots()
     { return "Julkiset vastineet"; } // "Public Slots"
-    virtual QCString trSignals()
+    QCString trSignals()
     { return "Signaalit"; } // "Signals"
-    virtual QCString trStaticPublicMembers()
+    QCString trStaticPublicMembers()
     { return "Staattiset julkiset j‰senfunktiot"; } // "Static Public Member Functions"
-    virtual QCString trProtectedMembers()
+    QCString trProtectedMembers()
     { return "Suojatut j‰senfunktiot"; } // "Protected Member Functions"
-    virtual QCString trProtectedSlots()
+    QCString trProtectedSlots()
     { return "Suojatut vastineet"; } // "Protected Slots"
-    virtual QCString trStaticProtectedMembers()
+    QCString trStaticProtectedMembers()
     { return "Staattiset suojatut j‰senfunktiot"; } // "Static Protected Member Functions"
-    virtual QCString trPrivateMembers()
+    QCString trPrivateMembers()
     { return "Yksityiset j‰senfunktiot"; } // "Private Member Functions"
-    virtual QCString trPrivateSlots()
+    QCString trPrivateSlots()
     { return "Yksityiset vastineet"; } // "Private Slots"
-    virtual QCString trStaticPrivateMembers()
+    QCString trStaticPrivateMembers()
     { return "Staattiset yksityiset j‰senfunktiot"; } // "Static Private Member Functions"
 
     /*! this function is used to produce a comma-separated list of items.
@@ -747,7 +747,7 @@ class TranslatorFinnish : public TranslatorEnglish
     /*! used in class documentation to produce a list of base classes,
      *  if class diagrams are disabled.
      */
-    virtual QCString trInheritsList(int numEntries)
+    QCString trInheritsList(int numEntries)
     {
       return "Perij‰t "+trWriteList(numEntries)+"."; // "Inherits "
     }
@@ -755,7 +755,7 @@ class TranslatorFinnish : public TranslatorEnglish
     /*! used in class documentation to produce a list of super classes,
      *  if class diagrams are disabled.
      */
-    virtual QCString trInheritedByList(int numEntries)
+    QCString trInheritedByList(int numEntries)
     {
       return "Periytyy "+trWriteList(numEntries)+"."; // "Inherited by "
     }
@@ -763,7 +763,7 @@ class TranslatorFinnish : public TranslatorEnglish
     /*! used in member documentation blocks to produce a list of 
      *  members that are hidden by this one.
      */
-    virtual QCString trReimplementedFromList(int numEntries)
+    QCString trReimplementedFromList(int numEntries)
     {
       return "Uudelleen toteutettaa "+trWriteList(numEntries)+"."; // "Reimplemented from "
     }
@@ -771,17 +771,17 @@ class TranslatorFinnish : public TranslatorEnglish
     /*! used in member documentation blocks to produce a list of
      *  all member that overwrite the implementation of this member.
      */
-    virtual QCString trReimplementedInList(int numEntries)
+    QCString trReimplementedInList(int numEntries)
     {
       return "Uudelleen toteutettu "+trWriteList(numEntries)+"."; // "Reimplemented in "
     }
 
     /*! This is put above each page as a link to all members of namespaces. */
-    virtual QCString trNamespaceMembers()
+    QCString trNamespaceMembers()
     { return "Nimiavaruuden j‰senet"; } // "Namespace Members"
     
     /*! This is an introduction to the page with all namespace members */
-    virtual QCString trNamespaceMemberDescription(bool extractAll)
+    QCString trNamespaceMemberDescription(bool extractAll)
     { 
       QCString result="T‰‰ll‰ on lista kaikista "; // "Here is a list of all "
       if (!extractAll) result+="dokumentoiduista "; // "documented "
@@ -795,13 +795,13 @@ class TranslatorFinnish : public TranslatorEnglish
     /*! This is used in LaTeX as the title of the chapter with the 
      *  index of all namespaces.
      */ 
-    virtual QCString trNamespaceIndex()
+    QCString trNamespaceIndex()
     { return "Nimiavaruuksien luettelo"; } // "Namespace Index"
     
     /*! This is used in LaTeX as the title of the chapter containing
      *  the documentation of all namespaces.
      */
-    virtual QCString trNamespaceDocumentation()
+    QCString trNamespaceDocumentation()
     { return "Nimiavaruuden dokumentaatio"; } // "Namespace Documentation"
 };
 
@@ -812,7 +812,7 @@ class TranslatorFinnish : public TranslatorEnglish
     /*! This is used in the documentation before the list of all
      *  namespaces in a file.
      */
-    virtual QCString trNamespaces()
+    QCString trNamespaces()
     { return "Nimiavaruudet"; } // "Namespaces"; }
 
 //////////////////////////////////////////////////////////////////////////
@@ -822,71 +822,71 @@ class TranslatorFinnish : public TranslatorEnglish
     /*! This is put at the bottom of a class documentation page and is
      *  followed by a list of files that were used to generate the page.
      */
-    virtual QCString trGeneratedFromFiles(ClassDef::CompoundType compType,
+    QCString trGeneratedFromFiles(ClassDef::CompoundType compType,
         bool single)
     { // here s is one of " Class", " Struct" or " Union"
       // single is true implies a single file
-      QCString result=(QCString)"The documentation for this ";
+      QCString result=(QCString)"Dokumentaatio t‰lle "; // "The documentation for this "
       switch(compType)
       {
-        case ClassDef::Class:      result+="class"; break;
-        case ClassDef::Struct:     result+="struct"; break;
-        case ClassDef::Union:      result+="union"; break;
-        case ClassDef::Interface:  result+="interface"; break;
-        case ClassDef::Protocol:   result+="protocol"; break;
-        case ClassDef::Category:   result+="category"; break;
-        case ClassDef::Exception:  result+="exception"; break;
+        case ClassDef::Class:      result+="luokalle"; break; // "class"
+        case ClassDef::Struct:     result+="tietueelle"; break; // "struct"
+        case ClassDef::Union:      result+="yhdisteelle"; break; // "union"
+        case ClassDef::Interface:  result+="rajapinnalle"; break; // "interface"
+        case ClassDef::Protocol:   result+="protokollalle"; break; // "protocol"
+        case ClassDef::Category:   result+="kategorialle"; break; // "category"
+        case ClassDef::Exception:  result+="poikkeukselle"; break; // "exception"
       }
-      result+=" was generated from the following file";
-      if (single) result+=":"; else result+="s:";
+      if (single) result+=" generoitiin seuraavasta tiedostosta:"; // " was generated from the following file"
+      else result+=" generoitiin seuraavista tiedostoista:"; // ":" or "s:"
       return result;
     }
 
     /*! This is in the (quick) index as a link to the alphabetical compound
      * list.
      */
-    virtual QCString trAlphabeticalList()
-    { return "Alphabetical List"; }
+    QCString trAlphabeticalList()
+    { return "Aakkosellinen lista"; } // "Alphabetical List"
 
 //////////////////////////////////////////////////////////////////////////
 // new since 0.49-990901
 //////////////////////////////////////////////////////////////////////////
 
     /*! This is used as the heading text for the retval command. */
-    virtual QCString trReturnValues()
-    { return "Return values"; }
+    QCString trReturnValues()
+    { return "Paluuarvot"; } // "Return values"
 
     /*! This is in the (quick) index as a link to the main page (index.html)
      */
-    virtual QCString trMainPage()
-    { return "Main Page"; }
+    QCString trMainPage()
+    { return "P‰‰sivu"; } // "Main Page"
 
     /*! This is used in references to page that are put in the LaTeX 
      *  documentation. It should be an abbreviation of the word page.
      */
-    virtual QCString trPageAbbreviation()
-    { return "p."; }
+    QCString trPageAbbreviation()
+    { return "s." ; } "p."
 
 //////////////////////////////////////////////////////////////////////////
 // new since 0.49-991003
 //////////////////////////////////////////////////////////////////////////
 
-    virtual QCString trDefinedAtLineInSourceFile()
+    QCString trDefinedAtLineInSourceFile()
     {
-      return "Definition at line @0 of file @1.";
+      return "M‰‰rittely tiedoston @1 rivill‰ @0."; //  "Definition at line @0 of file @1."
     }
-    virtual QCString trDefinedInSourceFile()
+    QCString trDefinedInSourceFile()
     {
-      return "Definition in file @0.";
+      return "M‰‰rittely tiedostossa @0."; // "Definition in file @0."
     }
 
 //////////////////////////////////////////////////////////////////////////
 // new since 0.49-991205
 //////////////////////////////////////////////////////////////////////////
 
-    virtual QCString trDeprecated()
+    QCString trDeprecated()
     {
-      return "Deprecated";
+      return "Vanhentunut"; // "Deprecated"
     }
 
 //////////////////////////////////////////////////////////////////////////
