@@ -191,15 +191,14 @@ class TranslatorFinnish : public TranslatorEnglish
      *  parameter s is name of the project name.
      */
     QCString trGeneratedAutomatically(const char *s)
-    { QCString result="Automaattisesti generoitu Doxygenilla "; // "Generated automatically by Doxygen"
+    { QCString result="Automaattisesti generoitu Doxygenilla "
+                      "lähdekoodista projektille "+s"; // "Generated automatically by Doxygen" ... "for" ... "from the sourcecode"
       //if (s) result+=(QCString)" voor "+s;
       // tässä on ongelma, kuinka taivuttaa parametria, esim. "Jcad"+"in"; "IFC2VRML konversio"+"n"
       // mutta ratkaistaan ongelma kätevästi kaksoispisteellä -> "Jcad:n" / "IFC2VRML konversio:n"
       // lopputulos on vähemmän kökkö ja täysin luettava, mutta ei kuitenkaan täydellinen.
       //
-      // Yritys ratkaista laittamalla "in" konsonanteille, "n" vokaaleille ja ":n" omituisille konsonanteille kuten q, x ja z
-      if (s) result+=genitive(s);
-      result+=" lähdekoodista."; // " from the source code."
+      // kierretään ongelma taivuttamalla sanaa projekti :)
       return result;
     }
 
@@ -705,50 +704,5 @@ class TranslatorFinnish : public TranslatorEnglish
       // the documentation of all namespaces.
     { return "Nimiavaruuden Dokumentaatio"; } // "Namespace Documentation"
 };
-
-    private:
-        
-        /*! Inflection to genitive case
-         *  Used by some functions that have to inlect a word
-         *  to better fit in Finnish spelling */
-        QCString genitive( const char *s ) {
-          if (s) {
-            switch (s[strlen(s)-1]) {
-              case 'b':
-              case 'c':
-              case 'd':
-              case 'f':
-              case 'g':
-              case 'h':
-              case 'j':
-              case 'k':
-              case 'l':
-              case 'm':
-              case 'n':
-              case 'p':
-              case 'r':
-              case 's':
-              case 't':
-              case 'v':
-                result+=(QCString)s+"in";
-                break;
-
-              case 'a':
-              case 'e':
-              case 'i':
-              case 'o':
-              case 'u':
-              case 'y':
-              case 'å':
-              case 'ä':
-              case 'ö':
-                result+=(QCString)s+"n";
-                break;
-
-              default: // q, x, z
-                result+=(QCString)s+":n";
-                break;
-            }
-          }
 
 #endif
