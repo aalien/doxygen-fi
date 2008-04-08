@@ -27,6 +27,9 @@ Antti Laine   (0.49-990425 -> )     <antti.a.laine@tut.fi>
          kaikissa tapauksissa hyvä ratkaisu, ja parempikin termi voi 
          olla vakiintuneessa käytössä.
 
+2008/04/08
+* Käännetty versioon 1.5.5 asti.
+
 * Tehtävää: 
         - Termien kokoaminen listaksi ja suomennosten järkevyyden tarkastelu. (lista on jo melko kattava)
                 Author          = Tekijä
@@ -191,8 +194,8 @@ class TranslatorFinnish : public TranslatorEnglish
      *  parameter s is name of the project name.
      */
     virtual QCString trGeneratedAutomatically(const char *s)
-    { QCString result="Automaattisesti generoitu Doxygenilla "
-                      "lähdekoodista projektille "+s"; // "Generated automatically by Doxygen" ... "for" ... "from the sourcecode"
+    { QCString result=(QCString)"Automaattisesti generoitu Doxygenilla "
+                      "lähdekoodista projektille "+s; // "Generated automatically by Doxygen" ... "for" ... "from the sourcecode"
       //if (s) result+=(QCString)" voor "+s;
       // tässä on ongelma, kuinka taivuttaa parametria, esim. "Jcad"+"in"; "IFC2VRML konversio"+"n"
       // mutta ratkaistaan ongelma kätevästi kaksoispisteellä -> "Jcad:n" / "IFC2VRML konversio:n"
@@ -227,7 +230,6 @@ class TranslatorFinnish : public TranslatorEnglish
     { return "Luokkahierarkia"; } // "Class Hierarchy"
    
     /*! This is put above each page as a link to the list of annotated classes */ 
-    virtual QCString trCompoundList()
     virtual QCString trCompoundList()
     { 
       if (Config_getBool("OPTIMIZE_OUTPUT_FOR_C"))
@@ -315,8 +317,7 @@ class TranslatorFinnish : public TranslatorEnglish
     /*! This is an introduction to the page with all class members. */
     virtual QCString trCompoundMembersDescription(bool extractAll)
     {
-      {
-      QCString result="Täällä on lista kaikista " // "Here is a list of all "
+      QCString result="Täällä on lista kaikista "; // "Here is a list of all "
       if (!extractAll)
       {
         result+="dokumentoiduista "; // "documented "
@@ -803,7 +804,6 @@ class TranslatorFinnish : public TranslatorEnglish
      */
     virtual QCString trNamespaceDocumentation()
     { return "Nimiavaruuden dokumentaatio"; } // "Namespace Documentation"
-};
 
 //////////////////////////////////////////////////////////////////////////
 // new since 0.49-990522
@@ -865,7 +865,7 @@ class TranslatorFinnish : public TranslatorEnglish
      *  documentation. It should be an abbreviation of the word page.
      */
     virtual QCString trPageAbbreviation()
-    { return "s." ; } "p."
+    { return "s."; } // "p."
 
 //////////////////////////////////////////////////////////////////////////
 // new since 0.49-991003
@@ -1120,7 +1120,7 @@ class TranslatorFinnish : public TranslatorEnglish
         "{\n"
         "  private:\n"
         "    Kaytetty *m_kaytettyLuokka;\n"
-        "}\n;
+        "}\n";
         // "class Inherited : public PublicBase,\n"
         // "                  protected ProtectedBase,\n"
         // "                  private PrivateBase,\n"
@@ -1265,7 +1265,7 @@ class TranslatorFinnish : public TranslatorEnglish
     /*! Text shown before a multi-line define */
     virtual QCString trDefineValue()
     {
-      return "Arvo:" // "Value:"
+      return "Arvo:"; // "Value:"
     }
     
 //////////////////////////////////////////////////////////////////////////
@@ -1430,7 +1430,7 @@ class TranslatorFinnish : public TranslatorEnglish
      */
     virtual QCString trReferences()
     {
-      return "Viittaukset" // "References"
+      return "Viittaukset"; // "References"
     }
 
 //////////////////////////////////////////////////////////////////////////
@@ -1589,7 +1589,7 @@ class TranslatorFinnish : public TranslatorEnglish
       }
       else 
       {
-        return "Löytyi <b>$num dokumenttia, jotka vastasivat hakuasi."; // "Found <b>$num</b> documents matching your query. "
+        return "Löytyi <b>$num dokumenttia, jotka vastasivat hakuasi. " // "Found <b>$num</b> documents matching your query. "
                 "Parhaat tulokset näytetään ensin."; // "Showing best matches first."
       }
     }
@@ -1756,13 +1756,13 @@ class TranslatorFinnish : public TranslatorEnglish
      *  of documentation blocks for subprograms (Fortran)
      */
     virtual QCString trSubprogramDocumentation()
-    { return "Funktioiden/aliohjelmien dokumentaatio"; }  "Function/Subroutine Documentation"
+    { return "Funktioiden/aliohjelmien dokumentaatio"; } // "Function/Subroutine Documentation"
 
     /*! This is used in the documentation of a file/namespace/group before 
      *  the list of links to documented compounds (Fortran)
      */
      virtual QCString trDataTypes()
-    { return "Tietotyypit"; } "Data Types"
+    { return "Tietotyypit"; } // "Data Types"
     
     /*! used as the title of page containing all the index of all modules (Fortran). */
     virtual QCString trModulesList()
@@ -1807,7 +1807,7 @@ class TranslatorFinnish : public TranslatorEnglish
     
     /*! This is put above each page as a link to all members of modules. (Fortran) */
     virtual QCString trModulesMembers()
-    { return "Moduulin jäsenet"; } "Module Members"
+    { return "Moduulin jäsenet"; } // "Module Members"
 
     /*! This is an introduction to the page with all modules members (Fortran) */
     virtual QCString trModulesMemberDescription(bool extractAll)
