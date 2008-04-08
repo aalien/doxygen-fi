@@ -85,12 +85,12 @@ class TranslatorFinnish : public TranslatorEnglish
      *  the user that the translation of his/her language of choice
      *  needs updating.
      */
-    virtual QCString updateNeededMessage()
+    /*virtual QCString updateNeededMessage()
     {
       return "Warning: The Finnish translator is really obsolete.\n"
              "It was not updated since version 1.0.0.  As a result,\n"
              "some sentences may appear in English.\n\n";
-    }
+    }*/
     
     // --- Language control methods -------------------
     
@@ -119,9 +119,7 @@ class TranslatorFinnish : public TranslatorEnglish
      */
     virtual QCString latexLanguageSupportCommand()
     {
-      return "\\usepackage[finnish}{babel}"
-             "\\usepackage[latin1]{inputenc}"
-             "\\usepackage[T1]{fontenc}";
+      return "\\usepackage[finnish]{babel}\n";
     }
 
     /*! return the language charset. This will be used for the HTML output */
@@ -293,7 +291,7 @@ class TranslatorFinnish : public TranslatorEnglish
     /*! This is an introduction to the list with all files. */
     virtual QCString trFileListDescription(bool extractAll)
     {
-      QCString result="T‰‰ll‰ on lista kaikista ";
+      QCString result="T‰ss‰ on lista kaikista ";
       if (!extractAll) result+="dokumentoiduista "; // "documented "
       result+="tiedostoista lyhyen selitteen kera:"; // "files with brief descriptions:"
       return result;
@@ -309,7 +307,7 @@ class TranslatorFinnish : public TranslatorEnglish
       }
       else
       {
-        return "T‰‰ll‰ ovat luokat, tietueet ja " // "Here are the classes, structs and "
+        return "T‰ss‰ ovat luokat, tietueet ja " // "Here are the classes, structs and "
              "yhdisteet lyhyen selitteen kera:"; // "unions with brief descriptions:"
       }
     }
@@ -317,7 +315,7 @@ class TranslatorFinnish : public TranslatorEnglish
     /*! This is an introduction to the page with all class members. */
     virtual QCString trCompoundMembersDescription(bool extractAll)
     {
-      QCString result="T‰‰ll‰ on lista kaikista "; // "Here is a list of all "
+      QCString result="T‰ss‰ on lista kaikista "; // "Here is a list of all "
       if (!extractAll)
       {
         result+="dokumentoiduista "; // "documented "
@@ -359,7 +357,7 @@ class TranslatorFinnish : public TranslatorEnglish
     /*! This is an introduction to the page with all file members. */
     virtual QCString trFileMembersDescription(bool extractAll)
     {
-      QCString result="T‰‰ll‰ on lista kaikista "; // "Here is a list of all "
+      QCString result="T‰ss‰ on lista kaikista "; // "Here is a list of all "
       if (!extractAll) result+="dokumentoiduista "; // "documented "
       
       if (Config_getBool("OPTIMIZE_OUTPUT_FOR_C"))
@@ -380,15 +378,15 @@ class TranslatorFinnish : public TranslatorEnglish
     
     /*! This is an introduction to the page with the list of all examples */
     virtual QCString trExamplesDescription()
-    { return "T‰‰ll‰ on lista kaikista esimerkeist‰:"; } //  "Here is a list of all examples:"
+    { return "T‰ss‰ on lista kaikista esimerkeist‰:"; } //  "Here is a list of all examples:"
    
     /*! This is an introduction to the page with the list of related pages */ 
     virtual QCString trRelatedPagesDescription()
-    { return "T‰‰ll‰ on lista kaikista liittyvist‰ dokumentaatiosivuista:"; } // "Here is a list of all related documentation pages:"
+    { return "T‰ss‰ on lista kaikista liittyvist‰ dokumentaatiosivuista:"; } // "Here is a list of all related documentation pages:"
    
     /*! This is an introduction to the page with the list of class/file groups */ 
     virtual QCString trModulesDescription()
-    { return "T‰‰ll‰ on lista kaikista moduleista:"; } // "Here is a list of all modules:"
+    { return "T‰ss‰ on lista kaikista moduleista:"; } // "Here is a list of all modules:"
     
     // index titles (the project name is prepended for these) 
     
@@ -636,7 +634,7 @@ class TranslatorFinnish : public TranslatorEnglish
     /*! used as an introduction to the namespace list */
     virtual QCString trNamespaceListDescription(bool extractAll)
     {
-      QCString result="T‰‰ll‰ on lista kaikista "; // "Here is a list of all "
+      QCString result="T‰ss‰ on lista kaikista "; // "Here is a list of all "
       if (!extractAll) result+="dokumentoiduista "; // "documented "
       result+="nimiavaruuksista lyhyen selitteen kera:"; // "namespaces with brief descriptions:"
       return result;
@@ -784,7 +782,7 @@ class TranslatorFinnish : public TranslatorEnglish
     /*! This is an introduction to the page with all namespace members */
     virtual QCString trNamespaceMemberDescription(bool extractAll)
     { 
-      QCString result="T‰‰ll‰ on lista kaikista "; // "Here is a list of all "
+      QCString result="T‰ss‰ on lista kaikista "; // "Here is a list of all "
       if (!extractAll) result+="dokumentoiduista "; // "documented "
       result+="nimiavaruuden j‰senist‰ linkitettyn‰ "; // "namespace members with links to "
       if (extractAll) 
@@ -1255,7 +1253,7 @@ class TranslatorFinnish : public TranslatorEnglish
     /*! The description of the package index page */
     virtual QCString trPackageListDescription()
     {
-      return "T‰‰ll‰ ovat paketit lyhyiden selitysten kanssa (jos saatavilla):"; // "Here are the packages with brief descriptions (if available):"
+      return "T‰ss‰ ovat paketit lyhyiden selitysten kanssa (jos saatavilla):"; // "Here are the packages with brief descriptions (if available):"
     }
     /*! The link name in the Quick links header for each page */
     virtual QCString trPackages()
