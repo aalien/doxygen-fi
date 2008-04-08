@@ -569,9 +569,12 @@ class TranslatorFinnish : public TranslatorEnglish
     virtual QCString trGeneratedAt(const char *date,const char *projName)
     { 
         // funktio on hiukan vaikea kääntää prepositioihin sidotun rakenteen vuoksi.
-      QCString result=(QCString)"Generoitu "+date; // "Generated on "
-      if (projName) result+=(QCString)" projektille "+projName; // " for "
-      result+=(QCString)" tekijä: "; // " by"
+        // Muutetaan siis lauserakennetta suomalaisemmaksi
+        // Generated on $date for $project by:
+        // -> Generated for $project on $date by:
+      QCString result=(QCString)"Generoinut ";
+      if (projName) result+=(QCString)"projektille "+projName+" ";
+      result+=(QCString)date+" ";
       return result;
     }
     /*! This is part of the sentence used in the standard footer of each page.
