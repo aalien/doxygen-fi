@@ -431,7 +431,7 @@ class TranslatorFinnish : public TranslatorEnglish
      *  the documentation of all groups.
      */
     virtual QCString trModuleDocumentation()
-    { return "Moduulin dokumentaatio"; } // "Module Documentation"
+    { return "Moduulien dokumentaatio"; } // "Module Documentation"
     
     /*! This is used in LaTeX as the title of the chapter containing
      *  the documentation of all classes, structs and unions.
@@ -440,11 +440,11 @@ class TranslatorFinnish : public TranslatorEnglish
     {
       if (Config_getBool("OPTIMIZE_OUTPUT_FOR_C"))
       {
-        return "Tietueen dokumentaatio"; // "Data Structure Documentation"
+        return "Tietueiden dokumentaatio"; // "Data Structure Documentation"
       }
       else
       {
-        return "Luokan dokumentaatio"; // "Class Documentation"
+        return "Luokkien dokumentaatio"; // "Class Documentation"
       }
     }
 
@@ -452,7 +452,7 @@ class TranslatorFinnish : public TranslatorEnglish
      *  the documentation of all files.
      */
     virtual QCString trFileDocumentation()
-    { return "Tiedoston dokumentaatio"; } // "File Documentation"
+    { return "Tiedostojen dokumentaatio"; } // "File Documentation"
     
     /*! This is used in LaTeX as the title of the chapter containing
      *  the documentation of all examples.
@@ -679,8 +679,8 @@ class TranslatorFinnish : public TranslatorEnglish
         case ClassDef::Category:   result+=" Kategoria"; break; // " Category"
         case ClassDef::Exception:  result+=" Poikkeus"; break; // " Exception"
       }
-      if (isTemplate) result+=" Malli"; // " Template"
-      result+=" Referenssi"; // " Reference"
+      if (isTemplate) result+="malli"; // " Template"
+      result+="referenssi"; // " Reference"
       return result;
     }
 
@@ -1794,8 +1794,8 @@ class TranslatorFinnish : public TranslatorEnglish
         case ClassDef::Category:   result+=" Kategoria"; break; // " Category"
         case ClassDef::Exception:  result+=" Poikkeus"; break; // " Exception"
       }
-      if (isTemplate) result+=" Malli"; // " Template"
-      result+=" Referenssi"; // " Reference"
+      if (isTemplate) result+="malli"; // " Template"
+      result+="referenssi"; // " Reference"
       return result;
     }
     /*! used as the title of the HTML page of a module (Fortran) */
