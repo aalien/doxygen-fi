@@ -303,7 +303,7 @@ class TranslatorFinnish : public TranslatorEnglish
     
       if (Config_getBool("OPTIMIZE_OUTPUT_FOR_C"))
       {
-        return "Tällä ovat tietueet lyhyen selitteen kera:"; // "Here are the data structures with brief descriptions:"
+        return "Tässä ovat tietueet lyhyen selitteen kera:"; // "Here are the data structures with brief descriptions:"
       }
       else
       {
@@ -767,7 +767,7 @@ class TranslatorFinnish : public TranslatorEnglish
      */
     virtual QCString trReimplementedFromList(int numEntries)
     {
-      return "Uudelleen toteutettaa "+trWriteList(numEntries)+"."; // "Reimplemented from "
+      return "Uudelleen toteuttaa "+trWriteList(numEntries)+"."; // "Reimplemented from "
     }
     
     /*! used in member documentation blocks to produce a list of
@@ -950,7 +950,7 @@ class TranslatorFinnish : public TranslatorEnglish
     }
     virtual QCString trGotoGraphicalHierarchy()
     {
-      return "Siirry graafiseen luokkahiearkiaan"; // "Go to the graphical class hierarchy"
+      return "Siirry graafiseen luokkahierarkiaan"; // "Go to the graphical class hierarchy"
     }
     virtual QCString trGotoTextualHierarchy()
     {
@@ -999,7 +999,7 @@ class TranslatorFinnish : public TranslatorEnglish
     }
     virtual QCString trStaticProtectedAttribs()
     {
-      return "Stattiset suojellut attribuutit"; // "Static Protected Attributes"
+      return "Staattiset suojellut attribuutit"; // "Static Protected Attributes"
     }
     virtual QCString trPrivateTypes()
     {
