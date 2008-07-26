@@ -29,6 +29,8 @@ Antti Laine   (0.49-990425 -> )     <antti.a.laine@tut.fi>
 
 2008/04/08
 * Käännetty versioon 1.5.5 asti.
+2008/08/26
+* MAX_DOT_GRAPH_HEIGHT poistettu, versio 1.5.6
 
 * Tehtävää: 
         - Termien kokoaminen listaksi ja suomennosten järkevyyden tarkastelu. (lista on jo melko kattava)
@@ -671,13 +673,13 @@ class TranslatorFinnish : public TranslatorEnglish
       QCString result=(QCString)clName;
       switch(compType)
       {
-        case ClassDef::Class:      result+=" Luokka"; break; // " Class"
-        case ClassDef::Struct:     result+=" Tietue"; break; // " Struct"
-        case ClassDef::Union:      result+=" Yhdiste"; break; // " Union"
-        case ClassDef::Interface:  result+=" Rajapinta"; break; // " Interface"
-        case ClassDef::Protocol:   result+=" Protokolla"; break; // " Protocol"
-        case ClassDef::Category:   result+=" Kategoria"; break; // " Category"
-        case ClassDef::Exception:  result+=" Poikkeus"; break; // " Exception"
+        case ClassDef::Class:      result+=" luokka"; break; // " Class"
+        case ClassDef::Struct:     result+=" tietue"; break; // " Struct"
+        case ClassDef::Union:      result+=" yhdiste"; break; // " Union"
+        case ClassDef::Interface:  result+=" rajapinta"; break; // " Interface"
+        case ClassDef::Protocol:   result+=" protokolla"; break; // " Protocol"
+        case ClassDef::Category:   result+=" kategoria"; break; // " Category"
+        case ClassDef::Exception:  result+=" poikkeus"; break; // " Exception"
       }
       if (isTemplate) result+="malli"; // " Template"
       result+="referenssi"; // " Reference"
@@ -688,7 +690,7 @@ class TranslatorFinnish : public TranslatorEnglish
     virtual QCString trFileReference(const char *fileName)
     {
       QCString result=fileName;
-      result+=" Tiedostoreferenssi"; // " File Reference"
+      result+=" tiedostoreferenssi"; // " File Reference"
       return result;
     }
     
@@ -696,7 +698,7 @@ class TranslatorFinnish : public TranslatorEnglish
     virtual QCString trNamespaceReference(const char *namespaceName)
     {
       QCString result=namespaceName;
-      result+=" Nimiavaruusreferenssi"; // " Namespace Reference"
+      result+=" nimiavaruusreferenssi"; // " Namespace Reference"
       return result;
     }
     
@@ -751,7 +753,7 @@ class TranslatorFinnish : public TranslatorEnglish
      */
     virtual QCString trInheritsList(int numEntries)
     {
-      return "Perijät "+trWriteList(numEntries)+"."; // "Inherits "
+      return (QCString)"Periytyy "+(numEntries > 1 ? "luokista " : "luokasta ")+trWriteList(numEntries)+"."; // "Inherits "
     }
     
     /*! used in class documentation to produce a list of super classes,
@@ -759,7 +761,7 @@ class TranslatorFinnish : public TranslatorEnglish
      */
     virtual QCString trInheritedByList(int numEntries)
     {
-      return "Periytyy "+trWriteList(numEntries)+"."; // "Inherited by "
+      return (QCString)"Periytetään "+(numEntries > 1 ? "luokissa " : "luokassa ")+trWriteList(numEntries)+"."; // "Inherited by "
     }
     
     /*! used in member documentation blocks to produce a list of 
@@ -767,7 +769,7 @@ class TranslatorFinnish : public TranslatorEnglish
      */
     virtual QCString trReimplementedFromList(int numEntries)
     {
-      return "Uudelleen toteuttaa "+trWriteList(numEntries)+"."; // "Reimplemented from "
+      return (QCString)"Uudelleen toteuttaa "+(numEntries > 1 ? "luokat " : "luokan  ")+trWriteList(numEntries)+"."; // "Reimplemented from "
     }
     
     /*! used in member documentation blocks to produce a list of
@@ -775,7 +777,7 @@ class TranslatorFinnish : public TranslatorEnglish
      */
     virtual QCString trReimplementedInList(int numEntries)
     {
-      return "Uudelleen toteutettu "+trWriteList(numEntries)+"."; // "Reimplemented in "
+      return (QCString)"Uudelleen toteutettu "+(numEntries > 1 ? "luokissa " : "luokassa ")+trWriteList(numEntries)+"."; // "Reimplemented in "
     }
 
     /*! This is put above each page as a link to all members of namespaces. */
@@ -1132,10 +1134,8 @@ class TranslatorFinnish : public TranslatorEnglish
         // "    Used *m_usedClass;\n"
         // "};\n"
         "\\endcode\n"
-        "Jos \\c MAX_DOT_GRAPH_HEIGHT-kenttä asetustiedostossa "
-        // "If the \\c MAX_DOT_GRAPH_HEIGHT tag in the configuration file "
-        "on asetettu arvoon 240, on tuloksena seuraavanlainen kaavio:"
-        // "is set to 240 this will result in the following graph:"
+        "Tuloksena on seuraavanlainen kaavio:"
+        //"This will result in the following graph:"
         "<p><center><img alt=\"\" src=\"graph_legend."+Config_getEnum("DOT_IMAGE_FORMAT")+"\"></center>\n"
         "<p>\n"
         "Ylläolevassa kaaviossa laatikoilla on seuraavat merkitykset\n:"
@@ -1443,7 +1443,7 @@ class TranslatorFinnish : public TranslatorEnglish
      */
     virtual QCString trImplementedFromList(int numEntries)
     {
-      return "Toteuttaa "+trWriteList(numEntries)+"."; // "Implements "
+      return "Toteuttaa luokan "+trWriteList(numEntries)+"."; // "Implements "
     }
 
     /*! used in member documentation blocks to produce a list of
@@ -1451,7 +1451,7 @@ class TranslatorFinnish : public TranslatorEnglish
      */
     virtual QCString trImplementedInList(int numEntries)
     {
-      return "Toteutettu "+trWriteList(numEntries)+"."; // "Implemented in "
+      return "Toteutettu luokassa "+trWriteList(numEntries)+"."; // "Implemented in "
     }
 
 //////////////////////////////////////////////////////////////////////////
@@ -1648,7 +1648,7 @@ class TranslatorFinnish : public TranslatorEnglish
      *  directory is passed via \a dirName.
      */
     virtual QCString trDirReference(const char *dirName)
-    { QCString result=dirName; result+=" Hakemistoreferenssi"; return result; }
+    { QCString result=dirName; result+=" hakemistoreferenssi"; return result; }
         // " Directory Reference"
 
     /*! This returns the word directory with or without starting capital
@@ -1786,13 +1786,13 @@ class TranslatorFinnish : public TranslatorEnglish
       QCString result=(QCString)clName;
       switch(compType)
       {
-        case ClassDef::Class:      result+=" Moduuli"; break; // " Module"
-        case ClassDef::Struct:     result+=" Tyyppi"; break; // " Type"
-        case ClassDef::Union:      result+=" Yhdiste"; break; // " Union"
-        case ClassDef::Interface:  result+=" Rajapinta"; break; // " Interface"
-        case ClassDef::Protocol:   result+=" Protokolla"; break; // " Protocol"
-        case ClassDef::Category:   result+=" Kategoria"; break; // " Category"
-        case ClassDef::Exception:  result+=" Poikkeus"; break; // " Exception"
+        case ClassDef::Class:      result+=" moduuli"; break; // " Module"
+        case ClassDef::Struct:     result+=" tyyppi"; break; // " Type"
+        case ClassDef::Union:      result+=" yhdiste"; break; // " Union"
+        case ClassDef::Interface:  result+=" rajapinta"; break; // " Interface"
+        case ClassDef::Protocol:   result+=" protokolla"; break; // " Protocol"
+        case ClassDef::Category:   result+=" kategoria"; break; // " Category"
+        case ClassDef::Exception:  result+=" poikkeus"; break; // " Exception"
       }
       if (isTemplate) result+="malli"; // " Template"
       result+="referenssi"; // " Reference"
@@ -1802,7 +1802,7 @@ class TranslatorFinnish : public TranslatorEnglish
     virtual QCString trModuleReference(const char *namespaceName)
     {
       QCString result=namespaceName;
-      result+=" Moduulin referenssi"; // " Module Reference"
+      result+=" moduulin referenssi"; // " Module Reference"
       return result;
     }
     
