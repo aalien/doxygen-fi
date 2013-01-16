@@ -175,7 +175,7 @@ class TranslatorFinnish : public Translator
       }
       else
       {
-        return "Jäsendatan dokumentaatio"; // "Member Data Documentation"
+        return "Jäsenmuuttujien dokumentaatio"; // "Member Data Documentation"
       }
     }
 
@@ -521,13 +521,13 @@ class TranslatorFinnish : public Translator
      *  list of (global) variables
      */
     virtual QCString trEnumerationValues()
-    { return "Luettelotyyppien arvot"; } // "Enumerator"
+    { return "Luettelotyypin arvot"; } // "Enumerator"
 
     /*! This is used in the documentation of a file before the list of
      *  documentation blocks for defines
      */
     virtual QCString trDefineDocumentation()
-    { return "Määritysten dokumentointi"; } // "Define Documentation"
+    { return "Määritysten dokumentaatio"; } // "Define Documentation"
     
     /*! This is used in the documentation of a file/namespace before the list 
      *  of documentation blocks for function prototypes
@@ -1046,7 +1046,7 @@ class TranslatorFinnish : public Translator
 
     virtual QCString trReferencedBy()
     {
-      return "Viitattu"; // "Referenced by"
+      return "Viitataan funktioissa"; // "Referenced by"
     }
     virtual QCString trRemarks()
     {
@@ -1440,7 +1440,7 @@ class TranslatorFinnish : public Translator
      */
     virtual QCString trReferences()
     {
-      return "Viittaukset"; // "References"
+      return "Viittaa jäseniin"; // "References"
     }
 
 //////////////////////////////////////////////////////////////////////////
